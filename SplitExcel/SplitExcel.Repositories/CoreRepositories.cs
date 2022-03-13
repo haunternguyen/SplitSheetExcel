@@ -12,11 +12,16 @@ namespace SplitExcel.Repositories
 	public interface ICoreRepository
 	{
 		DataSet RetrieveData();
+		void CreateDatabaseFile();
 	}
 	public class CoreRepository : ICoreRepository
 	{
-
 		private readonly SQLiteConnection _con;
+
+		public CoreRepository()
+		{
+			_con = new SQLiteConnection();
+		}
 
 		public DataSet RetrieveData()
 		{
@@ -24,9 +29,14 @@ namespace SplitExcel.Repositories
 			return GetQueryData(query);
 		}
 
-		public CoreRepository()
+		public void CreateDatabaseFile()
 		{
-			_con = new SQLiteConnection();
+			string sql = "CREATE TABLE IF NOT EXISTS tbl_students ([id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fullname nvarchar(50), birthday varchar(15), email varchar(30), address nvarchar(100), phone varchar(11))";
+			SQLiteConnection.CreateFile("MyDatabase.sqlite");
+			CreateConection();
+			SQLiteCommand command = new SQLiteCommand(sql, _con);
+			command.ExecuteNonQuery();
+			CloseConnection();
 		}
 
 		private void CreateConection()
