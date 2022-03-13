@@ -12,6 +12,7 @@ namespace SplitExcel.Service
 	public interface IUserService
 	{
 		DataSet GetUsers();
+		void ProvisionDatabase();
 	}
 
 	public class UserService : IUserService
@@ -25,6 +26,10 @@ namespace SplitExcel.Service
 		public DataSet GetUsers()
 		{
 			return _userRepository.GetUsers();
+		}
+		public void ProvisionDatabase()
+		{
+			_userRepository.ProvisionDatabase();
 		}
 	}
 }

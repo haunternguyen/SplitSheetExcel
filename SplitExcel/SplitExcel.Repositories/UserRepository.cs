@@ -13,22 +13,30 @@ namespace SplitExcel.Repository
 	public interface IUserRepository
 	{
 		DataSet GetUsers();
+		void ProvisionDatabase();
 	}
 
 	public class UserRepository : IUserRepository
 	{
-		private readonly DataSet _userList;
+		private DataSet _userList;
 		private readonly ICoreRepository _coreRepository;
 
 		public UserRepository(ICoreRepository CoreRepository)
 		{
 			_coreRepository = CoreRepository;
-			_userList = _coreRepository.RetrieveData();
+			
 		}
 
 		public DataSet GetUsers()
 		{
+			_userList = _coreRepository.RetrieveData();
 			return _userList;
 		}
+
+		public void ProvisionDatabase()
+		{
+			_coreRepository.CreateDatabaseFile();
+		}
+
 	}
 }

@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SplitExcel/SplitExcel.Repositories/bin/Debug
+/SplitExcel/SplitExcel.Repositories/obj/Debug
+/SplitExcel/SplitExcel.Service/bin/Debug
+/SplitExcel/SplitExcel/obj/Debug
+/SplitExcel/SplitExcel.Service/obj/Debug
+/SplitExcel/SplitExcel.WPF/bin/Debug
+/SplitExcel/SplitExcelTool/obj/Debug
+/SplitExcel/SplitExcel.WPF/obj/Debug
+/SplitExcel/.vs/SplitExcel/v15/Server/sqlite3/db.lock

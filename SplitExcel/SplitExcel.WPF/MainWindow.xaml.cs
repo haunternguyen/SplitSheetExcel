@@ -23,30 +23,23 @@ namespace SplitExcel.WPF
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public class User
-	{
-		public string FirstName { set; get; }
-		public string LastName { set; get; }
-	}
-
 	public partial class MainWindow : Window
 	{
-		public ObservableCollection<User> Users { get; set; }
-
+		private readonly UserService _userService;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
-			Users = new ObservableCollection<User>() { new User { FirstName = "FirstName1", LastName = "LastName1" } };
-
+			var kernel = new StandardKernel(new CoreModule());
+			_userService = kernel.Get<UserService>();
 			LoadGrid();
 
 		}
 
 		private void BtnCreateTable_Click(object sender, RoutedEventArgs e)
 		{
-			//SplitEcelRepositories.CreateTable();
+			_userService.ProvisionDatabase();
 		}
 
 		private void BtnInsert_Click(object sender, RoutedEventArgs e)
@@ -60,11 +53,7 @@ namespace SplitExcel.WPF
 
 		private void LoadGrid()
 		{
-			var kernel = new StandardKernel(new CoreModule());
-			var userService = kernel.Get<UserService>();
-
-
-			var dtSet = userService.GetUsers();
+			var dtSet = _userService.GetUsers();
 
 			DataTable dt = dtSet.Tables[0];
 			dataGrid.ItemsSource = dt.DefaultView;
