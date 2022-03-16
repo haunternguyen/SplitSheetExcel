@@ -26,3 +26,5 @@
 /SplitExcelTool/SplitExcelTool.UnitTests/obj
 /SplitExcelTool/.vs/SplitExcelTool/v17
 /SplitExcelTool/.vs/SplitExcelTool/DesignTimeBuild
+/SplitExcelTool/SplitExcelTool.App/bin/Debug/net6.0-windows
+/SplitExcelTool/SplitExcelTool.App/obj
