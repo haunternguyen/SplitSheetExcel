@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="btnCreateTable" Content="Button" HorizontalAlignment="Left" Margin="63,34,0,0" VerticalAlignment="Top" Width="75" Click="BtnCreateTable_Click"/>
-        <Button x:Name="btnInsert" Content="Insert" HorizontalAlignment="Left" Margin="252,38,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnInsert" Content="Insert" HorizontalAlignment="Left" Margin="252,38,0,0" VerticalAlignment="Top" Width="75" Click="BtnInsert_Click_1"/>
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="275" Margin="0,145,0,0" VerticalAlignment="Top" Width="784" ItemsSource="{Binding Users}"/>
 
     </Grid>

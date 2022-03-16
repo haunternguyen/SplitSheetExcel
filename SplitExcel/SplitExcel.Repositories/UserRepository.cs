@@ -13,7 +13,7 @@ namespace SplitExcel.Repository
 	public interface IUserRepository
 	{
 		DataSet GetUsers();
-		void ProvisionDatabase();
+		Task ProvisionDatabase();
 	}
 
 	public class UserRepository : IUserRepository
@@ -33,9 +33,9 @@ namespace SplitExcel.Repository
 			return _userList;
 		}
 
-		public void ProvisionDatabase()
+		async public Task ProvisionDatabase()
 		{
-			_coreRepository.CreateDatabaseFile();
+			await _coreRepository.CreateDatabaseFile();
 		}
 
 	}

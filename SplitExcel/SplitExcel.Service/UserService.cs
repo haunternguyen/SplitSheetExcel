@@ -12,7 +12,7 @@ namespace SplitExcel.Service
 	public interface IUserService
 	{
 		DataSet GetUsers();
-		void ProvisionDatabase();
+		Task ProvisionDatabase();
 	}
 
 	public class UserService : IUserService
@@ -27,9 +27,9 @@ namespace SplitExcel.Service
 		{
 			return _userRepository.GetUsers();
 		}
-		public void ProvisionDatabase()
+		async public Task ProvisionDatabase()
 		{
-			_userRepository.ProvisionDatabase();
+			await _userRepository.ProvisionDatabase();
 		}
 	}
 }

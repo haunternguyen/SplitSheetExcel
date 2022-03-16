@@ -6,13 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SplitExcel.Repositories
 {
+	//class tbl_students
+	//{
+	//	public string fullname { get; set; }
+
+	//	public string birthday { get; set; }
+	//}
+	//public class MyDB : DataContext
+	//{
+	//	public Table<Computer> kompy;
+	//	public MyDB(string connection) : base(connection) { }
+	//	public MyDB(IDbConnection connection) : base(connection) { }
+	//}
+
 
 	public interface ICoreRepository
 	{
 		DataSet RetrieveData();
-		void CreateDatabaseFile();
+		Task CreateDatabaseFile();
 	}
 	public class CoreRepository : ICoreRepository
 	{
@@ -29,14 +43,15 @@ namespace SplitExcel.Repositories
 			return GetQueryData(query);
 		}
 
-		public void CreateDatabaseFile()
+		public Task CreateDatabaseFile()
 		{
 			string sql = "CREATE TABLE IF NOT EXISTS tbl_students ([id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fullname nvarchar(50), birthday varchar(15), email varchar(30), address nvarchar(100), phone varchar(11))";
 			SQLiteConnection.CreateFile("MyDatabase.sqlite");
 			CreateConection();
 			SQLiteCommand command = new SQLiteCommand(sql, _con);
-			command.ExecuteNonQuery();
+			Task<int> result = command.ExecuteNonQueryAsync();
 			CloseConnection();
+			return result;
 		}
 
 		private void CreateConection()
@@ -62,5 +77,11 @@ namespace SplitExcel.Repositories
 			CloseConnection();
 			return ds;
 		}
+
+		//private Task<List<tbl_students>> getStudents()
+		//{
+		//	var context = new DataContext(connection);
+			
+		//}
 	}
 }

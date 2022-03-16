@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitExcelTool", "SplitExcelTool\SplitExcelTool.csproj", "{58EF5C3F-AD21-4606-A1B6-4652845ECFF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitExcelTool.Repositories", "SplitExcelTool.Repositories\SplitExcelTool.Repositories.csproj", "{FA69B8B5-90FC-4FE8-9383-3D518DBE3FDF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitExcelTool.Model", "SplitExcelTool.Model\SplitExcelTool.Model.csproj", "{D733E253-158F-4504-8EFD-0CD28F3105D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitExcelTool.Service", "SplitExcelTool.Service\SplitExcelTool.Service.csproj", "{F266FBF1-A1AE-4E80-8AE5-F78C2DCA09AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitExcelTool.UnitTests", "SplitExcelTool.UnitTests\SplitExcelTool.UnitTests.csproj", "{DF4B7B76-BE83-4A55-B732-28D08F3627B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitExcelTool.IUnitTest", "SplitExcelTool.IUnitTest\SplitExcelTool.IUnitTest.csproj", "{61564F66-D54A-407C-ADB7-6F88697A0F1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58EF5C3F-AD21-4606-A1B6-4652845ECFF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58EF5C3F-AD21-4606-A1B6-4652845ECFF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58EF5C3F-AD21-4606-A1B6-4652845ECFF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58EF5C3F-AD21-4606-A1B6-4652845ECFF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA69B8B5-90FC-4FE8-9383-3D518DBE3FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA69B8B5-90FC-4FE8-9383-3D518DBE3FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA69B8B5-90FC-4FE8-9383-3D518DBE3FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA69B8B5-90FC-4FE8-9383-3D518DBE3FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D733E253-158F-4504-8EFD-0CD28F3105D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D733E253-158F-4504-8EFD-0CD28F3105D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D733E253-158F-4504-8EFD-0CD28F3105D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D733E253-158F-4504-8EFD-0CD28F3105D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F266FBF1-A1AE-4E80-8AE5-F78C2DCA09AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F266FBF1-A1AE-4E80-8AE5-F78C2DCA09AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F266FBF1-A1AE-4E80-8AE5-F78C2DCA09AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F266FBF1-A1AE-4E80-8AE5-F78C2DCA09AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF4B7B76-BE83-4A55-B732-28D08F3627B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4B7B76-BE83-4A55-B732-28D08F3627B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF4B7B76-BE83-4A55-B732-28D08F3627B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF4B7B76-BE83-4A55-B732-28D08F3627B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61564F66-D54A-407C-ADB7-6F88697A0F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61564F66-D54A-407C-ADB7-6F88697A0F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61564F66-D54A-407C-ADB7-6F88697A0F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61564F66-D54A-407C-ADB7-6F88697A0F1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3158DF5-64E3-46B8-A5B8-9D743B71D33E}
+	EndGlobalSection
+EndGlobal

@@ -25,21 +25,23 @@ namespace SplitExcel.WPF
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private readonly UserService _userService;
+		private readonly IUserService _userService;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
 			var kernel = new StandardKernel(new CoreModule());
-			_userService = kernel.Get<UserService>();
+			_userService = kernel.Get<IUserService>();
+			_userService.ProvisionDatabase();
+
 			LoadGrid();
 
 		}
 
-		private void BtnCreateTable_Click(object sender, RoutedEventArgs e)
+		async private void BtnCreateTable_Click(object sender, RoutedEventArgs e)
 		{
-			_userService.ProvisionDatabase();
+			await _userService.ProvisionDatabase();
 		}
 
 		private void BtnInsert_Click(object sender, RoutedEventArgs e)
@@ -48,6 +50,7 @@ namespace SplitExcel.WPF
 
 			//string query = strInsert;
 			//SplitEcelRepositories.QueryData(query);
+			Test();
 
 		}
 
@@ -57,6 +60,36 @@ namespace SplitExcel.WPF
 
 			DataTable dt = dtSet.Tables[0];
 			dataGrid.ItemsSource = dt.DefaultView;
+		}
+
+		public void Test()
+		{
+			try
+			{
+				//DatabaseContext context = new DatabaseContext();
+				//Console.WriteLine("Enter Employee name");
+				//string name = Console.ReadLine();
+				//Console.WriteLine("Enter Salary");
+				//double salary = Convert.ToDouble(Console.ReadLine());
+				//Console.WriteLine("Enter Designation");
+				//string designation = Console.ReadLine();
+				//EmployeeMaster employee = new EmployeeMaster()
+				//{
+				//	fullname = "Full name 1"
+				//};
+				//context.EmployeeMaster.Add(employee);
+				//context.SaveChanges();
+			}
+			catch(Exception ex)
+			{
+				var test = ex;
+			}
+			
+		}
+
+		private void BtnInsert_Click_1(object sender, RoutedEventArgs e)
+		{
+			Test();
 		}
 	}
 }
