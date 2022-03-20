@@ -30,6 +30,7 @@ namespace SplitExcelTool.Repositories
 			optionbuilder.UseSqlite(@"Data Source=Sample.db");
 		}
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Patient> Patients { get; set; }
 
 	}
 }

@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Spire.Xls;
+using SplitExcelTool.Model;
+using SplitExcelTool.Repositories;
 
 namespace SplitExcelTool.Service
 {
@@ -12,6 +14,9 @@ namespace SplitExcelTool.Service
 	{
 		public int Start { set; get; }
 		public int End { set; get; }
+		public int FistPatientRow { set; get; }
+
+		public int LastPatientRow { set; get; }
 	}
 
 	public interface ISplitExcelService
@@ -22,7 +27,11 @@ namespace SplitExcelTool.Service
 	public class SplitExcelService: ISplitExcelService
 	{
 		private static string _exportFileName = "";
-
+		private readonly IPatientService _patientService;
+		public SplitExcelService(IPatientService patientService)
+		{
+			_patientService = patientService;
+		}
 		public void SplitSheet(string directory, string fullUrl, string fileName)
 		{
 			Workbook workbook = new Workbook();
@@ -36,11 +45,47 @@ namespace SplitExcelTool.Service
 
 			int endRow = patientRow.End;
 
+			var patients = RetrievePatientData(fullUrl);
+
+			AddPatients(patients);
+
 			ProccessRowByRow(startRow, endRow, sheet, workbook);
 
 			_exportFileName = directory + fileName + DateTime.Now.ToString("dd-MM-yyyy-hh-mm") + ".xlsx";
 
 			workbook.SaveToFile(_exportFileName, ExcelVersion.Version2013);
+		}
+
+		private void AddPatients(List<Patient> patients)
+		{
+			foreach(var patient in patients)
+			{
+				_patientService.AddPatient(patient);
+			}
+		}
+
+		private List<Patient> RetrievePatientData(string fileUrl)
+		{
+			Workbook workbook = new Workbook();
+			workbook.LoadFromFile(fileUrl);
+
+			Worksheet summarySheet = workbook.Worksheets[0];
+
+			PatientRow patientRow = FindPatientRow(summarySheet);
+
+			var patientList = new List<Patient>();
+
+			for(int i = patientRow.FistPatientRow; i<= patientRow.LastPatientRow; i++)
+			{
+				var patient = new Patient()
+				{
+					TestCode = summarySheet.Range[i, (int)PatientIndex.TestCode].Text,
+					FullName = summarySheet.Range[i, (int)PatientIndex.FulllName].Text,
+					Result = summarySheet.Range[i, (int)PatientIndex.Result].Text
+				};
+				patientList.Add(patient);
+			}
+			return patientList;
 		}
 
 		private PatientRow FindPatientRow(Worksheet summarySheet)
@@ -74,6 +119,9 @@ namespace SplitExcelTool.Service
 					}
 				}
 			}
+
+			patientRow.FistPatientRow = patientRow.Start + 2;
+			patientRow.LastPatientRow = patientRow.End - 1;
 			return patientRow;
 		}
 

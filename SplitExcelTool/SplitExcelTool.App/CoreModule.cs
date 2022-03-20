@@ -16,6 +16,9 @@ namespace SplitExcelTool.App
 			Bind<ICategoryRepository>().To<CategoryRepository>();
 			Bind<ICategoryService>().To<CategoryService>();
 			Bind<ISplitExcelService>().To<SplitExcelService>();
+			Bind<IPatientRepository>().To<PatientRepository>();
+			Bind<IPatientService>().To<PatientService>();
+
 		}
 	}
 }

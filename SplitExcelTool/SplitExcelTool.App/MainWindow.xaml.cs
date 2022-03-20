@@ -24,6 +24,7 @@ namespace SplitExcelTool.App
 	public partial class MainWindow : Window
 	{
 		private readonly ISplitExcelService _splitExcelService;
+		private readonly IPatientService _patientService;
 
 		public MainWindow()
 		{
@@ -31,6 +32,10 @@ namespace SplitExcelTool.App
 
 			var kernel = new StandardKernel(new CoreModule());
 			_splitExcelService = kernel.Get<ISplitExcelService>();
+			_patientService = kernel.Get<IPatientService>();
+
+
+			var data = _patientService.GetAllPatients();
 		}
 
 		private async void button_Click(object sender, RoutedEventArgs e)
