@@ -8,6 +8,11 @@ using Spire.Xls;
 
 namespace SplitExcelTool.Service
 {
+	public class PatientRow
+	{
+		public int Start { set; get; }
+		public int End { set; get; }
+	}
 
 	public interface ISplitExcelService
 	{
@@ -25,78 +30,112 @@ namespace SplitExcelTool.Service
 
 			Worksheet sheet = workbook.Worksheets[0];
 
-			int columnCount = sheet.Columns.Count();
+			PatientRow patientRow = FindPatientRow(sheet);
 
-			int startRow = 0;
+			int startRow = patientRow.Start;
 
-			int endRow = 0;
+			int endRow = patientRow.End;
+
+			ProccessRowByRow(startRow, endRow, sheet, workbook);
+
+			_exportFileName = directory + fileName + DateTime.Now.ToString("dd-MM-yyyy-hh-mm") + ".xlsx";
+
+			workbook.SaveToFile(_exportFileName, ExcelVersion.Version2013);
+		}
+
+		private PatientRow FindPatientRow(Worksheet summarySheet)
+		{
+			var patientRow = new PatientRow()
+			{
+				Start = 0,
+				End = 0
+			};
 
 			bool startRemove = false;
 			bool endRemove = false;
-			foreach (CellRange range in sheet.Columns[0])
+
+			foreach (CellRange range in summarySheet.Columns[0])
 			{
 				if (range.Text == "Chức năng lấy mẫu")
 				{
 
 					var column = range.Column;
-					startRow = range.Row;
+					patientRow.Start = range.Row;
 					startRemove = true;
 				}
 
-				if (startRemove && range.Row != startRow + 1 && (endRemove == false))
+				if (startRemove && range.Row != patientRow.Start + 1 && (endRemove == false))
 				{
 					if (range.Text == null)
 					{
 
-						endRow = range.Row;
+						patientRow.End = range.Row;
 						endRemove = true;
 					}
-
 				}
-
 			}
+			return patientRow;
+		}
 
+		private void ProccessRowByRow(int startRow, int endRow, Worksheet summarySheet, Workbook workbook)
+		{
 			for (int currentRow = startRow + 2; currentRow <= endRow - 1; currentRow++)
 			{
-				Worksheet calculatedSheet = null;
+				bool isFistItem = currentRow == startRow + 2;
+				bool isLastItem = currentRow == endRow - 1;
 
-				if (currentRow == startRow + 2)
+				if (isFistItem)
 				{
-					calculatedSheet = workbook.CreateEmptySheet(currentRow.ToString());
-
-					calculatedSheet.CopyFrom(sheet);
-					calculatedSheet.DeleteRow(startRow + 3, endRow - 1 - startRow + 3);
+					ProccessFirstItem(currentRow, startRow, endRow, summarySheet, workbook);
 				}
-				else if (currentRow == endRow - 1)
+				else if (isLastItem)
 				{
-					calculatedSheet = workbook.CreateEmptySheet(currentRow.ToString());
-					calculatedSheet.CopyFrom(sheet);
-
-					calculatedSheet.DeleteRow(startRow + 2, currentRow - (startRow + 2));
+					ProccessLastItem(currentRow, startRow, summarySheet, workbook);
 				}
 				else
 				{
-					calculatedSheet = workbook.CreateEmptySheet(currentRow.ToString());
-
-					calculatedSheet.CopyFrom(sheet);
-					var frontRange = currentRow - (startRow + 2);
-					var frontPoint = startRow + 2;
-
-					int endPoint = endRow - 1;
-
-					var backPoint = startRow + 3;
-					var backRange = endPoint - currentRow + 1;
-
-					calculatedSheet.DeleteRow(frontPoint, frontRange);
-					calculatedSheet.DeleteRow(backPoint, backRange);
+					ProccessMiddleItem(currentRow, startRow, endRow, summarySheet, workbook);
 				}
 			}
+		}
 
-			_exportFileName = directory + fileName + DateTime.Now.ToString("dd-MM-yyyy-hh-mm") + ".xlsx";
+		private void ProccessFirstItem(int currentRow, int startRow, int endRow, Worksheet summarySheet, Workbook workbook)
+		{
+			Worksheet calculatedSheet;
 
-			workbook.SaveToFile(_exportFileName, ExcelVersion.Version2013);
+			calculatedSheet = workbook.CreateEmptySheet(currentRow.ToString());
 
-			RemoveLastSheet();
+			calculatedSheet.CopyFrom(summarySheet);
+			int endRange = endRow - 1 - (startRow + 2);
+			calculatedSheet.DeleteRow(startRow + 3, endRange);
+		}
+		private void ProccessLastItem(int currentRow, int startRow, Worksheet summarySheet, Workbook workbook)
+		{
+			Worksheet calculatedSheet;
+
+			calculatedSheet = workbook.CreateEmptySheet(currentRow.ToString());
+			calculatedSheet.CopyFrom(summarySheet);
+
+			calculatedSheet.DeleteRow(startRow + 2, currentRow - (startRow + 2));
+		}
+
+		private void ProccessMiddleItem(int currentRow, int startRow, int endRow, Worksheet summarySheet, Workbook workbook)
+		{
+			Worksheet calculatedSheet;
+
+			calculatedSheet = workbook.CreateEmptySheet(currentRow.ToString());
+
+			calculatedSheet.CopyFrom(summarySheet);
+			var frontRange = currentRow - (startRow + 2);
+			var frontPoint = startRow + 2;
+
+			int endPoint = endRow - 1;
+
+			var backPoint = startRow + 3;
+			var backRange = endPoint - currentRow + 1;
+
+			calculatedSheet.DeleteRow(frontPoint, frontRange);
+			calculatedSheet.DeleteRow(backPoint, backRange);
 		}
 
 		private void RemoveLastSheet()

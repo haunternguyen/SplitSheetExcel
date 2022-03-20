@@ -28,31 +28,37 @@ namespace SplitExcelTool.App
 		public MainWindow()
 		{
 			InitializeComponent();
+
 			var kernel = new StandardKernel(new CoreModule());
 			_splitExcelService = kernel.Get<ISplitExcelService>();
 		}
 
-		private void button_Click(object sender, RoutedEventArgs e)
+		private async void button_Click(object sender, RoutedEventArgs e)
 		{
-			string fullFileName = null;
-
 			try
 			{
-				OpenFileDialog openFileDialog = new OpenFileDialog();
-				openFileDialog.Multiselect = true;
-				openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-				if (openFileDialog.ShowDialog() == true)
-				{
-					fullFileName = openFileDialog.FileName;
-					var fileName = System.IO.Path.GetFileName(fullFileName);
-					var directoryName = fullFileName.Replace(fileName, "");
-					_splitExcelService.SplitSheet(directoryName, fullFileName, fileName);
-				}
+				button.IsEnabled = false;
+				ProccessSheet();
+				button.IsEnabled = true;
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show("Error: " + ex.ToString());
+			}
+		}
+		private void ProccessSheet()
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Multiselect = true;
+			openFileDialog.Filter = "Excel Files| *.xls; *.xlsx;| All files (*.*)|*.*";
+			openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			if (openFileDialog.ShowDialog() == true)
+			{
+				var fullFileName = openFileDialog.FileName;
+				var fileName = System.IO.Path.GetFileName(fullFileName);
+				var directoryName = fullFileName.Replace(fileName, "");
+				_splitExcelService.SplitSheet(directoryName, fullFileName, fileName);
+				MessageBox.Show("done!");
 			}
 		}
 	}

@@ -70,7 +70,9 @@ namespace SplitService
 					calculatedSheet = workbook.CreateEmptySheet(currentRow.ToString());
 
 					calculatedSheet.CopyFrom(sheet);
-					calculatedSheet.DeleteRow(startRow + 3, endRow - 1 - startRow + 3);
+					//int MockEndRange = 47;
+					int endRange = endRow - 1 - (startRow + 2);
+					calculatedSheet.DeleteRow(startRow + 3, endRange);
 				}
 				else if (currentRow == endRow - 1)
 				{
