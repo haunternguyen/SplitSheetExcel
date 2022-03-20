@@ -12,6 +12,8 @@ namespace SplitExcelTool.Repositories
 		Patient AddPatient(Patient category);
 
 		List<Patient> GetAllPatients();
+
+		Patient GetPatientByTestCode(string testCode);
 	}
 
 	public class PatientRepository : DatabaseRepositoryBase, IPatientRepository
@@ -26,6 +28,10 @@ namespace SplitExcelTool.Repositories
 		public List<Patient> GetAllPatients()
 		{
 			return DataContext.Patients.ToList();
+		}
+		public Patient GetPatientByTestCode(string testCode)
+		{
+			return DataContext.Patients.Where(p=>p.TestCode == testCode).FirstOrDefault();
 		}
 	}
 }

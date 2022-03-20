@@ -7,6 +7,8 @@ namespace SplitExcelTool.Service
 	{
 		Patient AddPatient(Patient patient);
 		List<Patient> GetAllPatients();
+
+		Patient GetPatientByTestCode(string testCode);
 	}
 
 	public class PatientService : IPatientService
@@ -20,11 +22,13 @@ namespace SplitExcelTool.Service
 		{
 			return _patientRepository.AddPatient(patient);
 		}
-
 		public List<Patient> GetAllPatients()
 		{
 			return _patientRepository.GetAllPatients();
 		}
-
+		public Patient GetPatientByTestCode(string testCode)
+		{
+			return _patientRepository.GetPatientByTestCode(testCode);
+		}
 	}
 }

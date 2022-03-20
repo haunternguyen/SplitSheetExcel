@@ -36,6 +36,9 @@ namespace SplitExcelTool.App
 
 
 			var data = _patientService.GetAllPatients();
+			dataGrid.ItemsSource = data;
+			var mockData = _patientService.GetPatientByTestCode("U07B012202574");
+
 		}
 
 		private async void button_Click(object sender, RoutedEventArgs e)
